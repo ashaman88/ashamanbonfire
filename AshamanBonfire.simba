@@ -928,8 +928,7 @@ Begin
       FastClick(Mouse_Right);
       If ChooseOption.Select(['spirit','rit','ee'],750) Then
       Begin
-        TabBackpack.WaitForShift(2000);
-        BankShantay;
+        Wait(GaussrangeInt(600,2000));
         Result:=True;
         Inc(Spirits);
         SetLength(ATPA,0);
