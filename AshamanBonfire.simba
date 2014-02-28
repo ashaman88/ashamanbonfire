@@ -79,7 +79,7 @@ Var
   FunctionStop: String;
 
 Const
-  ScriptVersion = '3.3';
+  ScriptVersion = '3.4';
   Debug = False;
   POSDebug = False;
   PrintSmarts   = True;        // ***Proggy on smart? Currently has memory leaks***
@@ -268,6 +268,7 @@ Function FirePresent: Boolean;
 Var
   MB: TBox;
   TPA: TPointArray;
+  fireColors: T2DColorData;
 Begin
   If Not IsLoggedIn Then
     Exit;
@@ -277,9 +278,10 @@ Begin
   MB:=Mainscreen.PlayerBox;
   MB.Edit(-80,-80,+80,+80);
 
-  findColorsTolerance(tpa, 2458789, MB, 10,colorSetting(2, 0.17,2.26)); //edges of logs fire
+  fireColors := [[5960958, 12, [2, [0.10, 0.11, 0.00]]], [1351672, 3, [2, [0.51, 1.93, 0.00]]]];
 
-  result:=length(tpa)>50;
+  if (fireColors.gatherIn(tpa, mb)) then
+    result:=length(tpa)>50;
   setlength(tpa,0);
 End;
 
@@ -494,6 +496,20 @@ Begin
   FUNCTIONSTOP:='MOVEAWAY ENTERED';
   If Not IsLoggedIn Then
     Exit;
+
+  If (Length(Minimap.GetDots(MM_DOT_NPC,Minimap.GetBounds))>0) And ((CountColorTolerance(459779,Minimap.GetBounds,10)>5000) Or (CountColorTolerance(1774084,Minimap.GetBounds,10)>5000))Then
+  Begin
+    Players[CurrentPlayer].ExitToLobby;
+    Wait(RandomRange(2000,3000));
+    If Not Players[CurrentPlayer].Login Then
+      TerminateScript;
+    Wait(RandomRange(2000,3000));
+    Minimap.ClickCompass;
+    MainScreen.SetAngle(MS_ANGLE_HIGH);
+    Wait(RandomRange(2000,3000));
+    Timeout.Start;
+  End;
+
   Case GaussRangeInt(0,5) Of
     0: SPS.walkToPos2(Point(109,124),SPS.getPlayerPos());
     1: SPS.walkToPos2(Point(108,124),SPS.getPlayerPos());
@@ -820,7 +836,7 @@ Begin
 
   declarePlayers();
   If Players[CurrentPlayer].strings[2] = 'DirectX' Then
-    smartPlugins := ['d3d9.dll'];
+    smartPlugins := ['OpenGL32.dll','d3d9.dll'];
 
   SetupSRL;
   RequirementsCheck;
