@@ -52,37 +52,24 @@
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 
-Program AshamanBonfire;
+program AshamanBonfire;
   {$IFDEF RAYMONDPOWNS}{wrappers} function FloodFillTPAWrap(const TPA: TPointArray): T2DPointArray; var tempATPA: T2DPointArray; begin tempATPA:= FloodFillTPA(TPA); Result:= tempATPA; SetLength(tempATPA, 0); end; function FindTPAEdges(const p: TPointArray): TPointArray; begin FindTPAEdgesWrap(p, result); end; Function RotatePoints(Const P: TPointArray; A, cx, cy: Extended): TPointArray; begin RotatePointsWrap(P, A, cx, cy, result); end; function TPAFromCircle(const CX, CY, Radius: Integer): TPointArray; begin TPAFromCircleWrap(CX, CY, Radius, result); end; function TPAFromEllipse(const CX, CY, XRadius, YRadius : Integer): TPointArray; begin TPAFromEllipseWrap(CX, CY, XRadius, YRadius, result); end; function TPAFromBox(const Box : TBox) : TPointArray; begin TPAFromBoxWrap(Box, result); end; Function ReturnPointsNotInTPA(Const TotalTPA: TPointArray; const Box: TBox): TPointArray; begin ReturnPointsNotInTPAWrap(TotalTPA, Box, result); end; function CombineIntArray(const Ar1, Ar2: TIntegerArray): TIntegerArray; begin CombineIntArrayWrap(Ar1, Ar2, result); end; function ReArrangeandShortenArray(const a: TPointArray; Dist: Integer): TPointArray; begin ReArrangeandShortenArrayWrap(a, Dist, result); end; function ReArrangeandShortenArrayEx(const a: TPointArray; w, h: Integer): TPointArray; begin ReArrangeandShortenArrayExWrap(a, w, h, result); end; function CombineTPA(const Ar1, Ar2: TPointArray): TPointArray; begin CombineTPAWrap(Ar1, Ar2, Result); end; function RemoveDistTPointArray(x, y, dist: Integer;const ThePoints: TPointArray; RemoveHigher: Boolean): TPointArray; begin RemoveDistTPointArrayWrap(x, y, dist, ThePoints, RemoveHigher, Result); end; function TPAFromText(const text, font: String; var w,h: Integer): TPointArray; begin TPAFromTextWrap(text, font, w, h, result); end; function GetColors(const Coords: TPointArray): TIntegerArray; begin GetColorsWrap(Coords, Result); end; function Explode(del, str: string): TStringArray; begin ExplodeWrap(del, str, Result); end; function MergeATPA(const ATPA : T2DPointArray): TPointArray; begin MergeATPAWrap(ATPA, Result); end; function SplitTPA(arr : TPointArray; dist : Integer) : T2DPointArray; begin SplitTPAWrap(arr, dist, result); end; function SplitTPAEx(arr : TPointArray; w, h : integer) : T2DPointArray; begin SplitTPAExWrap(Arr, w, h, result); end; function ClearTPAFromTPA(arP, ClearPoints : TPointArray) : TPointArray; begin ClearTPAFromTPAWrap(arP, ClearPoints, result); end; function TPAToATPAEx(arP : TPointArray; w, h : integer) : T2DPointArray; begin TPAtoATPAExWrap(arP, w, h, result); end; function TPAToATPA(arP : TPointArray; dist : Integer) : T2DPointArray; begin TPAtoATPAWrap(arP, dist, result); end; function FindGapsTPA(TPA : TPointArray; MinPixels : integer) : T2DPointArray; begin FindGapsTPAWrap(tpa, MinPixels, result); end; {$ENDIF}
   {$Define SMART}
   {$I SRL-6/SRL.Simba}
   {$i srl-6/lib/misc/srlplayerform.simba}
   {$I SPS/lib/SPS-RS3.Simba}
 
-{
-AshamanBonfire v3.4
--Make sure zoom is farthest out + srl graphic settings
--Turn off xp popup
--Smallest shrunk chat box (see topic pics)
--Have logs in top right bank slot
--Have logs be the first hotkey slot (far left slot)
--Start in front of shantay chest
--FILL OUT THE STUFF BELOW
--READ THE OP DIRECTIONS
-}
-
-Var
-  LogCount,XP,StartingExperience,Spirits,XPH,LogsPH: Extended;
-  CurrentBTime,Timeout,Reset: TTimeMarker;
-  W,X,Y,Z,BreakRounds,TotalBreaks,RealBTime: Integer;
-  LogDTM,TimeoutLength,ResetLength: Integer;
+var
+  LogCount, XP, StartingExperience, Spirits, XPH, LogsPH: Extended;
+  CurrentBTime, Timeout, Reset: TTimeMarker;
+  W, X, Y, Z, BreakRounds, TotalBreaks, RealBTime: Integer;
+  LogDTM, TimeoutLength, ResetLength: Integer;
+  debug: boolean;
   FunctionStop: String;
 
 Const
-  ScriptVersion = '3.4';
-  Debug = False;
+  scriptVersion = '3.5';
   POSDebug = False;
-  PrintSmarts   = True;        // ***Proggy on smart? Currently has memory leaks***
 
 procedure declarePlayers();
 var
@@ -106,35 +93,32 @@ begin
       booleans[0] := strToBool(playerForm.players[i].settings[3]);    //take breaks
       booleans[1] := strToBool(playerForm.players[i].settings[5]);    //find spirits
       FindMod := strToBool(playerForm.players[i].settings[4]);        //logmod
+      debug := strToBool(playerForm.players[i].settings[6]);  //debug
 
       // any other data types you've decided to use
       strings[0] := playerForm.players[i].settings[0]; //quickkey
-      strings[1] := playerForm.players[i].settings[6]; //logtype
-      strings[2] := playerForm.players[i].settings[7]; //graphics
+      strings[1] := playerForm.players[i].settings[7]; //logtype
     end;
 end;
 
-// initiates the SRL player form (you aren't restricted to the procedure name; it can be whatever you want)
 procedure initPlayerForm();
 begin
   with playerForm do
   begin
-    name := 'AshamanBonfire v'+toStr(ScriptVersion); // the title of the SPF, usually the name of your script
-    scriptHelpThread := '';           // a link to a help thread, if set to '' will link to my setup guide
-    scriptSettingsPath := '';         // where you want the settings file to be saved; saved in script's path by default
+    name := 'AshamanBonfire v'+toStr(ScriptVersion);
+    scriptHelpThread := '';
+    scriptSettingsPath := '';
 
-    editBoxLabels := ['QuickKey', 'Minutes until Break', '# of Minutes to Break']; // edit boxes are created for each array element
-    editBoxDefaults := [ '0', '600', '15'];                                             // optional default values for each edit box; array length must equal editBoxLabel length
-    checkBoxLabels := ['Take Breaks', 'Logout if Mod is near', 'Find Spirits'];        // same as editBoxLabels but for check boxes
-    checkBoxDefaults := ['True','True','True'];
+    editBoxLabels := ['QuickKey', 'Minutes until Break', '# of Minutes to Break'];
+    editBoxDefaults := [ '0', '600', '15'];
+    checkBoxLabels := ['Take Breaks', 'Logout if Mod is near', 'Find Spirits', 'DebugMode'];
+    checkBoxDefaults := ['True','True','True', 'False'];
 
-    comboBoxLabels := ['LogType', 'GraphicsMode'];                                                // same as editBoxLabels but for combo boxes (drop down boxes)
-    comboBoxDefaults := ['Maple', 'OpenGL'];
+    comboBoxLabels := ['LogType'];
+    comboBoxDefaults := ['Maple'];
 
-    // this needs to be done for every element in the comboBoxLabels array
     setLength(comboBoxItems, length(comboBoxLabels));
-    comboBoxItems[0] := ['Normal', 'Oak', 'Willow', 'Teak', 'Maple', 'Mahogany', 'Eucalyptus', 'Yew', 'Magic', 'Elder'];       // all the options available for the first combo box
-    comboBoxItems[1] := ['OpenGL', 'DirectX'];
+    comboBoxItems[0] := ['Normal', 'Oak', 'Willow', 'Teak', 'Maple', 'Mahogany', 'Eucalyptus', 'Yew', 'Magic', 'Elder'];
   end;
 end;
 
@@ -277,8 +261,8 @@ Begin
 
   MB:=Mainscreen.PlayerBox;
   MB.Edit(-80,-80,+80,+80);
-
-  fireColors := [[5960958, 12, [2, [0.10, 0.11, 0.00]]], [1351672, 3, [2, [0.51, 1.93, 0.00]]]];
+                      //logs
+  fireColors := [[1808090, 9, [2, [0.24, 2.45, 0.00]]], [6352889, 12, [2, [0.10, 0.61, 0.00]]]];
 
   if (fireColors.gatherIn(tpa, mb)) then
     result:=length(tpa)>50;
@@ -304,28 +288,31 @@ var
   s: String;
   tpa : TPointArray;
   atpa : T2DPointArray;
-  i,cts,p: Integer;
+  i,cts,p,p2: Integer;
 begin
-  b := self.getBounds();
-  b.edit(+(b.x2-b.x1)-140, +10, -5, -94);
+  result := -1;
 
-  findColorsTolerance(tpa, 14013909, b, 4,colorSetting(2, 0.00, 0.00));
+  b := [self.x2 - 199, self.y1 + 10, self.x2, self.y2 - 92];
+
+  findColorsTolerance(tpa, 14013909, b, 4, colorSetting(2, 0.00, 0.00));
 
   if length(tpa) < 2 then
   begin
     print('chatBox.getXP(): No XP found', TDebug.SUB);
-    Exit;
+    exit;
   end;
 
-  atpa := tpa.cluster(5);
+  atpa := tpa.cluster(10);
+  atpa.sortBySize;
 
-  b:= atpa.getbounds;
+  b := atpa[low(atpa)].getbounds;
   b.edit(-2,-2,+2,+3);
 
-  s:=Replace(tesseractgettext(b.x1,b.y1,b.x2,b.y2, FILTER_SMALL_CHARS), ' ', '', [rfReplaceAll]);
+  s := Replace(tesseractgettext(b.x1,b.y1,b.x2,b.y2, FILTER_SMALL_CHARS_2), ' ', '', [rfReplaceAll]);
 
   P := Pos('x', S);
-  if P > 0 then
+  P2 := Pos('X', S);
+  if (P > 0) Or (P2 > 0) then
     Result := StrToIntDef(ExtractFromStr(Copy(s, P, Length(S)), Numbers), 0)
   else
     Result := StrToIntDef(ExtractFromStr(S, Numbers), 0);
@@ -354,8 +341,7 @@ Begin
  Timeout.Start;
  Reset.Start;
 
-  If PrintSmarts Then
-    PrintSmart;
+ PrintSmart;
 End;
 
 Function CountLogs: Integer;
@@ -567,7 +553,6 @@ Begin
       Begin
         SendKeys(Players[CurrentPlayer].strings[0], 60 + Random(60), 60 + Random(60));
         Wait(GaussRangeInt(0, 100));
-        MouseBox([369,186,411,230]);
         If Toolscreen.IsOpen(RandomRange(3000,6000)) Then
         Begin
           ToolScreen.Select('bonfire');
@@ -593,13 +578,13 @@ Begin
   FUNCTIONSTOP:='FINDFIRE EXIT';
 End;
 
-Function FindSpirit: Boolean;
-Var
+function findSpirit: boolean;
+var
   I,H,X,Y: Integer;
-  MB: TBox;
+  mb: TBox;
   TPA,TPa2  : TPointArray;
   ATPA : T2DPointArray;
-  CTS : Integer;
+  spiritColors: T2DColorData;
 Begin
   FUNCTIONSTOP:='FINDSPIRIT ENTERED';
 
@@ -608,13 +593,13 @@ Begin
 
   Result:=False;
 
-  MB:=Mainscreen.PlayerBox;
-  MB.Edit(-35,-35,+35,+35);
+  mb:=Mainscreen.PlayerBox;
+  mb.Edit(-35,-35,+35,+35);
+                               //lighter                              darker
+  spiritColors := [[6990571, 1, [2, [0.20, 1.04, 0.00]]], [5801433, 3, [2, [0.26, 2.19, 0.00]]]];
 
-  findColorsTolerance(tpa, 4087476, MB, 6,colorSetting(2, 0.04,1.26)); //darkorangey
-  findColorsTolerance(tpa2, 4287425, MB, 3,colorSetting(2, 0.30,2.85)); //lightorangey
-  TPA.Combine(TPA2);
-  SetLength(TPA2,0);
+  if not (spiritColors.gatherIn(tpa, mb)) then
+    exit(false);
 
   ATPA := TPA.Cluster(20);
   ATPA.FilterBetween(0,4);
@@ -835,8 +820,7 @@ Begin
     terminatescript;
 
   declarePlayers();
-  If Players[CurrentPlayer].strings[2] = 'DirectX' Then
-    smartPlugins := ['OpenGL32.dll','d3d9.dll'];
+  smartPlugins := ['OpenGL32.dll','d3d9.dll'];
 
   SetupSRL;
   RequirementsCheck;
@@ -857,10 +841,12 @@ Begin
   End;
 
   If Not Debug Then
-    DisableSRLDebug:=True;
-  ClearDebug;
+    DisableSRLDebug:=True else
+    DisableSRLDebug := false;
 
-  If conversationBox.continue(true, true) Then
+  clearDebug;
+
+  if conversationBox.continue(true, true) then
     Wait(RandomRange(3000,2000));
 
   Minimap.ClickCompass;
