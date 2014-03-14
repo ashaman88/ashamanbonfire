@@ -53,22 +53,22 @@
 
 
 program AshamanBonfire;
-  {$IFDEF RAYMONDPOWNS}{wrappers} function FloodFillTPAWrap(const TPA: TPointArray): T2DPointArray; var tempATPA: T2DPointArray; begin tempATPA:= FloodFillTPA(TPA); Result:= tempATPA; SetLength(tempATPA, 0); end; function FindTPAEdges(const p: TPointArray): TPointArray; begin FindTPAEdgesWrap(p, result); end; Function RotatePoints(Const P: TPointArray; A, cx, cy: Extended): TPointArray; begin RotatePointsWrap(P, A, cx, cy, result); end; function TPAFromCircle(const CX, CY, Radius: Integer): TPointArray; begin TPAFromCircleWrap(CX, CY, Radius, result); end; function TPAFromEllipse(const CX, CY, XRadius, YRadius : Integer): TPointArray; begin TPAFromEllipseWrap(CX, CY, XRadius, YRadius, result); end; function TPAFromBox(const Box : TBox) : TPointArray; begin TPAFromBoxWrap(Box, result); end; Function ReturnPointsNotInTPA(Const TotalTPA: TPointArray; const Box: TBox): TPointArray; begin ReturnPointsNotInTPAWrap(TotalTPA, Box, result); end; function CombineIntArray(const Ar1, Ar2: TIntegerArray): TIntegerArray; begin CombineIntArrayWrap(Ar1, Ar2, result); end; function ReArrangeandShortenArray(const a: TPointArray; Dist: Integer): TPointArray; begin ReArrangeandShortenArrayWrap(a, Dist, result); end; function ReArrangeandShortenArrayEx(const a: TPointArray; w, h: Integer): TPointArray; begin ReArrangeandShortenArrayExWrap(a, w, h, result); end; function CombineTPA(const Ar1, Ar2: TPointArray): TPointArray; begin CombineTPAWrap(Ar1, Ar2, Result); end; function RemoveDistTPointArray(x, y, dist: Integer;const ThePoints: TPointArray; RemoveHigher: Boolean): TPointArray; begin RemoveDistTPointArrayWrap(x, y, dist, ThePoints, RemoveHigher, Result); end; function TPAFromText(const text, font: String; var w,h: Integer): TPointArray; begin TPAFromTextWrap(text, font, w, h, result); end; function GetColors(const Coords: TPointArray): TIntegerArray; begin GetColorsWrap(Coords, Result); end; function Explode(del, str: string): TStringArray; begin ExplodeWrap(del, str, Result); end; function MergeATPA(const ATPA : T2DPointArray): TPointArray; begin MergeATPAWrap(ATPA, Result); end; function SplitTPA(arr : TPointArray; dist : Integer) : T2DPointArray; begin SplitTPAWrap(arr, dist, result); end; function SplitTPAEx(arr : TPointArray; w, h : integer) : T2DPointArray; begin SplitTPAExWrap(Arr, w, h, result); end; function ClearTPAFromTPA(arP, ClearPoints : TPointArray) : TPointArray; begin ClearTPAFromTPAWrap(arP, ClearPoints, result); end; function TPAToATPAEx(arP : TPointArray; w, h : integer) : T2DPointArray; begin TPAtoATPAExWrap(arP, w, h, result); end; function TPAToATPA(arP : TPointArray; dist : Integer) : T2DPointArray; begin TPAtoATPAWrap(arP, dist, result); end; function FindGapsTPA(TPA : TPointArray; MinPixels : integer) : T2DPointArray; begin FindGapsTPAWrap(tpa, MinPixels, result); end; {$ENDIF}
+  {$IFDEF RAYMONDPOWNS}{wrappers} function FloodFillTPAWrap(const TPA: TPointArray): T2DPointArray; var tempATPA: T2DPointArray; begin tempATPA:= FloodFillTPA(TPA); Result:= tempATPA; SetLength(tempATPA, 0); end; function FindTPAEdges(const p: TPointArray): TPointArray; begin FindTPAEdgesWrap(p, result); end; Function RotatePoints(Const P: TPointArray; A, cx, cy: Extended): TPointArray; begin RotatePointsWrap(P, A, cx, cy, result); end; function TPAFromCircle(const CX, CY, Radius: Integer): TPointArray; begin TPAFromCircleWrap(CX, CY, Radius, result); end; function TPAFromEllipse(const CX, CY, XRadius, YRadius : Integer): TPointArray; begin TPAFromEllipseWrap(CX, CY, XRadius, YRadius, result); end; function TPAFromBox(const Box : TBox) : TPointArray; begin TPAFromBoxWrap(Box, result); end; Function ReturnPointsnotInTPA(Const TotalTPA: TPointArray; const Box: TBox): TPointArray; begin ReturnPointsnotInTPAWrap(TotalTPA, Box, result); end; function CombineIntArray(const Ar1, Ar2: TIntegerArray): TIntegerArray; begin CombineIntArrayWrap(Ar1, Ar2, result); end; function ReArrangeandShortenArray(const a: TPointArray; Dist: Integer): TPointArray; begin ReArrangeandShortenArrayWrap(a, Dist, result); end; function ReArrangeandShortenArrayEx(const a: TPointArray; w, h: Integer): TPointArray; begin ReArrangeandShortenArrayExWrap(a, w, h, result); end; function CombineTPA(const Ar1, Ar2: TPointArray): TPointArray; begin CombineTPAWrap(Ar1, Ar2, Result); end; function RemoveDistTPointArray(x, y, dist: Integer;const ThePoints: TPointArray; RemoveHigher: Boolean): TPointArray; begin RemoveDistTPointArrayWrap(x, y, dist, ThePoints, RemoveHigher, Result); end; function TPAFromText(const text, font: String; var w,h: Integer): TPointArray; begin TPAFromTextWrap(text, font, w, h, result); end; function GetColors(const Coords: TPointArray): TIntegerArray; begin GetColorsWrap(Coords, Result); end; function Explode(del, str: string): TStringArray; begin ExplodeWrap(del, str, Result); end; function MergeATPA(const ATPA : T2DPointArray): TPointArray; begin MergeATPAWrap(ATPA, Result); end; function SplitTPA(arr : TPointArray; dist : Integer) : T2DPointArray; begin SplitTPAWrap(arr, dist, result); end; function SplitTPAEx(arr : TPointArray; w, h : integer) : T2DPointArray; begin SplitTPAExWrap(Arr, w, h, result); end; function ClearTPAFromTPA(arP, ClearPoints : TPointArray) : TPointArray; begin ClearTPAFromTPAWrap(arP, ClearPoints, result); end; function TPAToATPAEx(arP : TPointArray; w, h : integer) : T2DPointArray; begin TPAtoATPAExWrap(arP, w, h, result); end; function TPAToATPA(arP : TPointArray; dist : Integer) : T2DPointArray; begin TPAtoATPAWrap(arP, dist, result); end; function FindGapsTPA(TPA : TPointArray; MinPixels : integer) : T2DPointArray; begin FindGapsTPAWrap(tpa, MinPixels, result); end; {$ENDIF}
   {$Define SMART}
   {$I SRL-6/SRL.Simba}
   {$i srl-6/lib/misc/srlplayerform.simba}
   {$I SPS/lib/SPS-RS3.Simba}
 
 var
-  LogCount, XP, StartingExperience, Spirits, XPH, LogsPH: Extended;
-  CurrentBTime, Timeout, Reset: TTimeMarker;
-  W, X, Y, Z, BreakRounds, TotalBreaks, RealBTime: Integer;
-  LogDTM, TimeoutLength, ResetLength: Integer;
-  debug: boolean;
-  FunctionStop: String;
+  logCount, XP, startingExperience, spirits, XPH, logsPH: extended;
+  currentBTime, timeout, reset: TTimeMarker;
+  w, x, y, z, breakRounds, totalBreaks, realBTime: integer;
+  logDTM, timeoutLength, resetLength: integer;
+  debug, failsafe: boolean;
+  functionStop: string;
 
-Const
-  scriptVersion = '3.5';
+const
+  scriptVersion = '3.6';
   POSDebug = False;
 
 procedure declarePlayers();
@@ -93,11 +93,12 @@ begin
       booleans[0] := strToBool(playerForm.players[i].settings[3]);    //take breaks
       booleans[1] := strToBool(playerForm.players[i].settings[5]);    //find spirits
       FindMod := strToBool(playerForm.players[i].settings[4]);        //logmod
-      debug := strToBool(playerForm.players[i].settings[6]);  //debug
+      failsafe := strToBool(playerForm.players[i].settings[6]);  //failsafe
+      debug := strToBool(playerForm.players[i].settings[7]);  //debug
 
       // any other data types you've decided to use
       strings[0] := playerForm.players[i].settings[0]; //quickkey
-      strings[1] := playerForm.players[i].settings[7]; //logtype
+      strings[1] := playerForm.players[i].settings[8]; //logtype
     end;
 end;
 
@@ -111,8 +112,8 @@ begin
 
     editBoxLabels := ['QuickKey', 'Minutes until Break', '# of Minutes to Break'];
     editBoxDefaults := [ '0', '600', '15'];
-    checkBoxLabels := ['Take Breaks', 'Logout if Mod is near', 'Find Spirits', 'DebugMode'];
-    checkBoxDefaults := ['True','True','True', 'False'];
+    checkBoxLabels := ['Take Breaks', 'Logout if Mod is near', 'Find Spirits', 'Timeout Failsafe', 'DebugMode'];
+    checkBoxDefaults := ['True','True','True', 'True', 'False'];
 
     comboBoxLabels := ['LogType'];
     comboBoxDefaults := ['Maple'];
@@ -122,40 +123,40 @@ begin
   end;
 end;
 
-Procedure SetDTMs;
-Begin
+procedure setDTMs;
+begin
   FUNCTIONSTOP:='SetDTMs ENTERED';
-  LogDTM := DTMFromString('mwQAAAHic42RgYOAFYmkgFgVibgYI4ILyZYBYEqpGFCrHAlUHEhcDYj4gZgViFx1OIMkIxExImBFJjJEhBaoWH2YkAsMBABO8AjM=');
+  logDTM := DTMFromString('mwQAAAHic42RgYOAFYmkgFgVibgYI4ILyZYBYEqpGFCrHAlUHEhcDYj4gZgViFx1OIMkIxExImBFJjJEhBaoWH2YkAsMBABO8AjM=');
 
-  W := (Players[CurrentPlayer].integers[0] * 60000);
-  X := (Players[CurrentPlayer].integers[1] * 60000);
-  Y := RandomRange(-13 * 60000, 13 * 60000);
-  Z := RandomRange(-7 * 60000, 7 * 60000);
+  w := (players[currentPlayer].integers[0] * 60000);
+  x := (players[currentPlayer].integers[1] * 60000);
+  y := RandomRange(-13 * 60000, 13 * 60000);
+  z := RandomRange(-7 * 60000, 7 * 60000);
 
   FUNCTIONSTOP:='SetDTMs EXIT';
-End;
+end;
 
-Procedure Fr33DTMs;
-Begin
-  FreeDTM(LogDTM);
-End;
+procedure fr33DTMs;
+begin
+  freeDTM(logDTM);
+end;
 
-Function BreakHandler(BreakIn, BreakFor, randBreakIn, randBreakFor: Integer): Boolean;
-Var
+function breakHandler(BreakIn, BreakFor, randBreakIn, randBreakFor: Integer): boolean;
+var
   H,M,S: Integer;
-Begin
+begin
   FUNCTIONSTOP:='BREAK ENTERED';
 
-  If Not IsLoggedIn Then
+  if not IsLoggedIn then
     Exit;
 
-  If (GetTimeRunning < ((W) + (Y) + BreakRounds)) Then
-    Exit Else
-    If (GetTimeRunning > ((W) + (Y) + BreakRounds)) Then
-    Begin
+  if (GetTimeRunning < ((W) + (Y) + BreakRounds)) then
+    Exit else
+    if (GetTimeRunning > ((W) + (Y) + BreakRounds)) then
+    begin
       RealBTime := Round((X+Z)/60000);
       Writeln('Taking a break for about ' + IntToStr(RealBTime) + ' minutes.');
-      Players[CurrentPlayer].Logout;
+      players[currentPlayer].Logout;
       CurrentBTime.Reset;
       CurrentBTime.Start;
       Repeat
@@ -164,24 +165,23 @@ Begin
         Writeln('Breaktime left: '+IntToStr(H)+':'+IntToStr(M)+':'+IntToStr(S));
       Until(CurrentBTime.GetTime>(X+Z));
       Writeln('Logging in.');
-      Players[CurrentPlayer].Login;
+      players[currentPlayer].Login;
       Wait(4000);
       Timeout.Start;
-      Reset.Reset;
       Reset.Start;
       Result := IsLoggedIn;
       Minimap.ClickCompass;
       MainScreen.SetAngle(MS_ANGLE_HIGH);
       IncEx(BreakRounds, (W) + (X));
       Inc(TotalBreaks);
-      Writeln('The next break will occur in about ' + IntToStr(Players[CurrentPlayer].integers[0]) + ' minutes.');
-      W := (Players[CurrentPlayer].integers[0] * 60000);
-      X := (Players[CurrentPlayer].integers[1] * 60000);
+      Writeln('The next break will occur in about ' + IntToStr(players[currentPlayer].integers[0]) + ' minutes.');
+      W := (players[currentPlayer].integers[0] * 60000);
+      X := (players[currentPlayer].integers[1] * 60000);
       Y := RandomRange(-13 * 60000, 13 * 60000);
       Z := RandomRange(-7 * 60000, 7 * 60000);
-    End;
+    end;
   FUNCTIONSTOP:='BREAK EXIT';
-End;
+end;
 
 Function GrabMaps: Boolean;
 var
@@ -192,7 +192,7 @@ begin
   Name:= IncludePath + 'SPS\img\runescape_surface\0_0SP.png';
   Map:= 'http://img607.imageshack.us/img607/3805/c7l2.png';
   begin
-    if (Not FileExists(Name)) then
+    if (not FileExists(Name)) then
     begin
       writeln('No file, downloading');
       SPSFile:=CreateFile(Name);
@@ -205,10 +205,10 @@ begin
   Result:= (FileExists(IncludePath + 'SPS\img\runescape_surface\0_0SP.png'));
 end;
 
-Procedure RequirementsCheck;
+procedure RequirementsCheck;
 begin
-  If (Not GrabMaps) then
-    RaiseException(erCustomError, 'SPS Maps Do Not Exist OR They Are Named Incorrectly!');
+  if (not GrabMaps) then
+    RaiseException(erCustomError, 'SPS Maps Do not Exist OR They Are Named Incorrectly!');
 end;
 
 {*******************************************************************************
@@ -217,17 +217,17 @@ By: Shuttleu
 Edited By: Ashaman88
 Description: Autoupdates Script.
 *******************************************************************************}
-Procedure AutoUpdateMe;
-Var
+procedure AutoUpdateMe;
+var
   Neifile: Integer;
   OnlineVersion, NewScript, NeiFeilNennen: String;
-Begin
+begin
   Writeln('Checking for script updates...');
   OnlineVersion := GetPage('http://ashamanbonfire.googlecode.com/git/Version.txt');
   Writeln(OnlineVersion);
   Writeln(ScriptVersion)
-  If (trim(OnlineVersion) > ScriptVersion) Then
-  Begin
+  if (trim(OnlineVersion) > ScriptVersion) then
+  begin
     WriteLn('Newer script version online!');
     WriteLn('Autoupdating to newer version.');
     NewScript := GetPage('http://ashamanbonfire.googlecode.com/git/AshamanBonfire.simba');
@@ -236,41 +236,41 @@ Begin
     Try
       WriteFileString(Neifile, NewScript);
     Except
-      Begin
+      begin
         WriteLn('Fatal error writing to '+NeiFeilNennen+'!!');
         Terminatescript;
-      End;
-    End;
+      end;
+    end;
     CloseFile(Neifile);
     WriteLn('New script downloaded to '+NeiFeilNennen+'!! Please use this one!!');
     TerminateScript;
-  End Else
+  end else
     WriteLn('You have the latest version of the script!');
-End;
+end;
 
 Function FirePresent: Boolean;
-Var
+var
   MB: TBox;
   TPA: TPointArray;
   fireColors: T2DColorData;
-Begin
-  If Not IsLoggedIn Then
+begin
+  if not IsLoggedIn then
     Exit;
 
   Result:=False;
 
   MB:=Mainscreen.PlayerBox;
   MB.Edit(-80,-80,+80,+80);
-                      //logs
-  fireColors := [[1808090, 9, [2, [0.24, 2.45, 0.00]]], [6352889, 12, [2, [0.10, 0.61, 0.00]]]];
+                      //logs                                  //yeller
+  fireColors := [[1808090, 9, [2, [0.24, 2.45, 0.00]]], [6548726, 12, [2, [0.10, 0.94, 0.00]]]];
 
   if (fireColors.gatherIn(tpa, mb)) then
     result:=length(tpa)>50;
   setlength(tpa,0);
-End;
+end;
 
-Procedure PrintSmart;
-Begin
+procedure PrintSmart;
+begin
   SmartImage.Clear;
   SmartImage.DrawText('==========AshamanBonfire==========',Point(11,319),clWhite);
   SmartImage.DrawText('============Version: '+ScriptVersion+'============',Point(11,319+10),clWhite);
@@ -278,9 +278,9 @@ Begin
   SmartImage.DrawText('Experience Earned: ' +ToStr(XP),Point(11,319+30),clWhite);
   SmartImage.DrawText('Experience/Hour: ' + ToStr(XPH),Point(11,319+40),clWhite);
   SmartImage.DrawText('==================================',Point(11,319+50),clWhite);
-  If Spirits > 0 Then
+  if Spirits > 0 then
     SmartImage.DrawText('Spirits Freed: ' + ToStr(Spirits),Point(11,319+60),clWhite);
-End;
+end;
 
 function TRSChatBox.getXP: Integer;
 var
@@ -320,9 +320,9 @@ begin
   print('chatBox.getXP(): XP found: ' + tostr(result), TDebug.SUB);
 end;
 
-Procedure ProgressReport;
-Begin
-  If Not Debug Then
+procedure ProgressReport;
+begin
+  if not Debug then
     ClearDebug;
 
   XP := (ChatBox.GetXP - Round(StartingExperience));
@@ -333,7 +333,7 @@ Begin
   writeln('|                   AshamanBonfire v'+PadR(toStr(ScriptVersion), 24), '|');
   writeln('|=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=|');
   writeln(PadR('| Running For: '+TimeRunning, 60)+'|');
-  writeln(PadR('| '+Players[CurrentPlayer].strings[1]+'''s Burned: ' + GroupDigits(LogCount,','), 40) + padR('Logs/H: ' + GroupDigits(LogsPH,','), 20) + '|');
+  writeln(PadR('| '+players[currentPlayer].strings[1]+'''s Burned: ' + GroupDigits(LogCount,','), 40) + padR('Logs/H: ' + GroupDigits(LogsPH,','), 20) + '|');
   writeln(PadR('| Exp Earned: ' + GroupDigits(XP,','), 40) + padR('Exp/Hour: ' + GroupDigits(XPH,','), 20) + '|');
   writeln('|___________________________________________________________|');
   writeln('|___________________________________________________________|');
@@ -342,93 +342,112 @@ Begin
  Reset.Start;
 
  PrintSmart;
-End;
+end;
 
 Function CountLogs: Integer;
-Var
+var
   X,Y,I: Integer;
-Begin
+begin
   FUNCTIONSTOP:='COUNTLOGS ENTERED';
 
   Result:=TabBackpack.CountDTM(LogDTM);
-  If Debug Then
+  if Debug then
     Writeln(ToStr(Result)+' logs found in inventory');
 
   FUNCTIONSTOP:='COUNTLOGSEXIT';
-End;
+end;
 
 Function BankShantay: Boolean;
-Var
+var
   P: TPoint;
   T: TTimeMarker;
   Time: Integer;
-Begin
+begin
   FUNCTIONSTOP:='BANKSHANTAY ENTERED';
 
-  If Not IsLoggedIn Then
+  if not IsLoggedIn then
     Exit;
 
+  if (ChooseOption.IsOpen) then
+    mouseOffClient(4);
+
   T.Start;
-  If (Not Bankscreen.Open(BANK_CHEST_SHANTAY)) And (Not BankScreen.IsOpen) Then
-    If SPS.BlindWalk(Point(110,126)) Then
-    Begin
-      While (Minimap.IsPlayerMoving) And (T.GetTime < GaussRangeInt(10000,20000)) Do
-        Wait(1000);
-      If (Not Bankscreen.Open(BANK_CHEST_SHANTAY)) And (Not BankScreen.IsOpen) Then
-        Exit;
-    End Else
-      If Minimap.FindSymbol(P,MM_SYMBOL_BANK, Minimap.GetBounds) Then
-      Begin
-        Mouse(X+10+GaussRangeInt(-2,2),Y-10+GaussRangeInt(-2,2),Mouse_Left,Mouse_Human);
-        Wait(RandomRange(5000,9000));
-        Minimap.ClickCompass;
-        MainScreen.SetAngle(MS_ANGLE_HIGH);
-        If (Not Bankscreen.Open(BANK_CHEST_SHANTAY)) And (Not BankScreen.IsOpen) Then
+  if (not Bankscreen.Open(BANK_CHEST_SHANTAY)) And (not BankScreen.IsOpen) then
+  begin
+    if (Length(Minimap.GetDots(MM_DOT_NPC,Minimap.GetBounds))>0) And ((CountColorTolerance(459779,Minimap.GetBounds,10)>5000) Or (CountColorTolerance(1774084,Minimap.GetBounds,10)>5000))then
+    begin
+      players[currentPlayer].ExitToLobby;
+      Wait(RandomRange(2000,3000));
+      if not players[currentPlayer].Login then
+        if failsafe then
+          TerminateScript;
+      Wait(RandomRange(2000,3000));
+      Minimap.ClickCompass;
+      MainScreen.SetAngle(MS_ANGLE_HIGH);
+      Wait(RandomRange(2000,3000));
+      Timeout.Start;
+    end else
+      if SPS.BlindWalk(Point(110,126)) then
+      begin
+        While (Minimap.IsPlayerMoving) And (T.GetTime < GaussRangeInt(10000,20000)) Do
+          Wait(1000);
+        if (not Bankscreen.Open(BANK_CHEST_SHANTAY)) And (not BankScreen.IsOpen) then
           Exit;
-      End Else
-      Begin
-        Mouse(Point(628,150),Mouse_Left,Mouse_Human);
-        FastClick(Mouse_left);
-        Wait(GaussRangeInt(3000,6000));
-        If (Not Bankscreen.Open(BANK_CHEST_SHANTAY)) And (Not BankScreen.IsOpen) Then
-          Exit;
-      End;
+      end else
+        if Minimap.FindSymbol(P,MM_SYMBOL_BANK, Minimap.GetBounds) then
+        begin
+          Mouse(X+10+GaussRangeInt(-2,2),Y-10+GaussRangeInt(-2,2),Mouse_Left,Mouse_Human);
+          Wait(RandomRange(5000,9000));
+          Minimap.ClickCompass;
+          MainScreen.SetAngle(MS_ANGLE_HIGH);
+          if (not Bankscreen.Open(BANK_CHEST_SHANTAY)) And (not BankScreen.IsOpen) then
+            Exit;
+        end else
+        begin
+          Mouse(Point(628,150),Mouse_Left,Mouse_Human);
+          FastClick(Mouse_left);
+          Wait(GaussRangeInt(3000,6000));
+          if (not Bankscreen.Open(BANK_CHEST_SHANTAY)) And (not BankScreen.IsOpen) then
+            Exit;
+        end;
+  end;
 
   Time:=GaussRangeInt(3000,8000);
   T.Start;
   Repeat
-    If Not IsLoggedIn Then
+    if not IsLoggedIn then
       Exit;
-    If T.GetTime>Time Then
-    Begin
-      If Debug Then
+    if T.GetTime>Time then
+    begin
+      if Debug then
         Writeln('Took too long to open bank');
       Exit;
-    End;
+    end;
     Wait(Random(100));
   Until BankScreen.IsOpen Or PinScreen.IsOpen;
 
-  PinScreen.Enter(Players[CurrentPlayer].BankPin);
+  PinScreen.Enter(players[currentPlayer].BankPin);
 
-  If BankScreen.GetPackCount > 0 Then
+  if BankScreen.GetPackCount > 0 then
     BankScreen.QuickDeposit(QUICK_DEPOSIT_INVENTORY);
 
   T.Start;
   Repeat
     Wait(Random(100));
-    If BankScreen.Withdraw(10, WITHDRAW_AMOUNT_ALL, ['']) Then
+    if BankScreen.Withdraw(10, WITHDRAW_AMOUNT_ALL, ['']) then
       Break;
 
-    If Not IsLoggedIn Then
+    if not IsLoggedIn then
       Exit;
 
-    If T.GetTime>Time Then
-    Begin
+    if T.GetTime>Time then
+    begin
       Writeln('Out of logs');
       Writeln('Screenshot saved, send to Ashaman if you"re not really out of logs!');
       SaveScreenshot(ScriptPath + '/fail_.bmp');
-      TerminateScript;
-    End;
+      if failsafe then
+        TerminateScript;
+    end;
   Until False;
 
   BankScreen.Close;
@@ -436,19 +455,20 @@ Begin
   T.Start;
   Repeat
     Wait(Random(152));
-    If Not IsLoggedIn Then
+    if not IsLoggedIn then
       Exit;
-    If T.GetTime>Time Then
-    Begin
+    if T.GetTime>Time then
+    begin
       Writeln('Inventory still not full, WTF??');
       SaveScreenshot(ScriptPath + '/fail_.bmp');
-      TerminateScript;
-    End;
+      if failsafe then
+        TerminateScript;
+    end;
   Until (TabBackpack.IsItemInSlot(28));
 
   Result:=True;
   FUNCTIONSTOP:='BANKSHANTAY EXIT';
-End;
+end;
 
 function TSPSArea.walkToPos2(pos: TPoint; playerPos: TPoint): boolean;
 var
@@ -477,24 +497,25 @@ begin
   print('TSPSArea.walkToPos(): result = '+boolToStr(result));
 end;
 
-Procedure MoveAway;
-Begin
+procedure MoveAway;
+begin
   FUNCTIONSTOP:='MOVEAWAY ENTERED';
-  If Not IsLoggedIn Then
+  if not IsLoggedIn then
     Exit;
 
-  If (Length(Minimap.GetDots(MM_DOT_NPC,Minimap.GetBounds))>0) And ((CountColorTolerance(459779,Minimap.GetBounds,10)>5000) Or (CountColorTolerance(1774084,Minimap.GetBounds,10)>5000))Then
-  Begin
-    Players[CurrentPlayer].ExitToLobby;
+  if (Length(Minimap.GetDots(MM_DOT_NPC,Minimap.GetBounds))>0) And ((CountColorTolerance(459779,Minimap.GetBounds,10)>5000) Or (CountColorTolerance(1774084,Minimap.GetBounds,10)>5000))then
+  begin
+    players[currentPlayer].ExitToLobby;
     Wait(RandomRange(2000,3000));
-    If Not Players[CurrentPlayer].Login Then
-      TerminateScript;
+    if not players[currentPlayer].Login then
+      if failsafe then
+        TerminateScript;
     Wait(RandomRange(2000,3000));
     Minimap.ClickCompass;
     MainScreen.SetAngle(MS_ANGLE_HIGH);
     Wait(RandomRange(2000,3000));
     Timeout.Start;
-  End;
+  end;
 
   Case GaussRangeInt(0,5) Of
     0: SPS.walkToPos2(Point(109,124),SPS.getPlayerPos());
@@ -502,40 +523,36 @@ Begin
     2: SPS.walkToPos2(Point(109,128),SPS.getPlayerPos());
     3: SPS.walkToPos2(Point(108,128),SPS.getPlayerPos());
     4: SPS.walkToPos2(Point(108,124),SPS.getPlayerPos());
-  End;
+  end;
   FUNCTIONSTOP:='MOVEAWAY EXIT';
-End;
+end;
 
 Function LightFire:Boolean;
-Begin
+begin
   FUNCTIONSTOP:='LIGHTFIRE ENTERED';
 
-  If Not IsLoggedIn Then
+  if not IsLoggedIn then
     Exit;
 
-  Result := FirePresent;
-  If Result Then
-    Exit;
-
-  If TabBackpack.ClickDTM(LogDTM,Mouse_Right,'ight',0,False) Then
-    If TabBackpack.WaitForShift(GaussRangeInt(3000,4000)) Then
-    Begin
+  if TabBackpack.ClickDTM(LogDTM,Mouse_Right,'ight',0,False) then
+    if TabBackpack.WaitForShift(GaussRangeInt(3000,4000)) then
+    begin
       Result:= True;
       Wait(GaussRangeInt(3000,6000));
-    End Else
+    end else
       MoveAway;
 
   FUNCTIONSTOP:='LIGHTFIRE EXIT';
-End;
+end;
 
 Function FindFire: Boolean;
-Var
+var
   I: Integer;
   T: TTimeMarker;
-Begin
+begin
   FUNCTIONSTOP:='FINDFIRE ENTERED';
 
-  If Not IsLoggedIn Then
+  if not IsLoggedIn then
     Exit;
 
   Result:=False;
@@ -547,36 +564,36 @@ Begin
   Wait(Random(100));
 
   For I:=0 To 1 Do
-    If FindDTM(LogDTM,X,Y,TabBackpack.GetBounds) Then
-    Begin
-      If WaitFunc(@FirePresent,100,RandomRange(6000,7000)) Then
-      Begin
-        SendKeys(Players[CurrentPlayer].strings[0], 60 + Random(60), 60 + Random(60));
+    if FindDTM(LogDTM,X,Y,TabBackpack.GetBounds) then
+    begin
+      if WaitFunc(@FirePresent,100,RandomRange(6000,7000)) then
+      begin
+        SendKeys(players[currentPlayer].strings[0], 60 + Random(60), 60 + Random(60));
         Wait(GaussRangeInt(0, 100));
-        If Toolscreen.IsOpen(RandomRange(3000,6000)) Then
-        Begin
+        if Toolscreen.IsOpen(RandomRange(3000,6000)) then
+        begin
           ToolScreen.Select('bonfire');
           Result:= TabBackpack.WaitForShift(GaussRangeInt(2000,4000));
-          If Result Then
-            Exit Else
-            Begin
-              If I=1 Then
-              Begin
+          if Result then
+            Exit else
+            begin
+              if I=1 then
+              begin
                 MoveAway;
                 LightFire;
-              End Else
-                Wait(GaussRangeInt(3000,6000));
+              end else
+                Wait(GaussRangeInt(8000,9000));
 
-            End;
-        End;
-      End Else
-      Begin
+            end;
+        end;
+      end else
+      begin
         MoveAway;
         LightFire;
-      End;
-    End;
+      end;
+    end;
   FUNCTIONSTOP:='FINDFIRE EXIT';
-End;
+end;
 
 function findSpirit: boolean;
 var
@@ -585,10 +602,10 @@ var
   TPA,TPa2  : TPointArray;
   ATPA : T2DPointArray;
   spiritColors: T2DColorData;
-Begin
+begin
   FUNCTIONSTOP:='FINDSPIRIT ENTERED';
 
-  If Not IsLoggedIn Then
+  if not IsLoggedIn then
     Exit;
 
   Result:=False;
@@ -596,111 +613,118 @@ Begin
   mb:=Mainscreen.PlayerBox;
   mb.Edit(-35,-35,+35,+35);
                                //lighter                              darker
-  spiritColors := [[6990571, 1, [2, [0.20, 1.04, 0.00]]], [5801433, 3, [2, [0.26, 2.19, 0.00]]]];
+  spiritColors := [[6663398, 3, [2, [0.37, 1.38, 0.00]]], [5602513, 8, [2, [0.24, 1.84, 0.00]]]];
 
   if not (spiritColors.gatherIn(tpa, mb)) then
     exit(false);
 
-  ATPA := TPA.Cluster(20);
-  ATPA.FilterBetween(0,4);
+  ATPA := TPA.Cluster(4);
+  ATPA.FilterBetween(0,10);
   ATPA.SortBySize;
 
   SetLength(TPA,0);
+
+  smartimage.clear;
 
   SmartImage.DebugATPA(ATPA);
 
   H := High(ATPA);
 
   For I := 0 To H Do
-  Begin
-    Writeln(Length(ATPA[i]));
+  begin
+    Writeln('length of possible spirit: '+tostr(Length(ATPA[i])));
+    writeln('density of possible spirit: ' + toStr(atpa[i].getDensity));
+
+    if (atpa[i].getDensity > 0.8) or (atpa[i].getDensity < 0.2) then
+      continue;
+
     MiddleTPAEx(ATPA[I],X,Y);
 
-    If (ChooseOption.OptionsExist(['Exam','mine','Examine','Canc','ncel','Cancel'],400)) Then
-    Begin
-      If Debug Then
+    if (ChooseOption.IsOpen) then
+    begin
+      if Debug then
         Writeln('Closing options menu');
       MouseBox(TabBackpack.GetBounds);
-    End;
+    end;
 
     Mouse(X+GaussRangeInt(-2,2),Y+GaussRangeInt(-2,2));
-    If IsMouseOverText(['emon','spirit','rit','ee','Coll','-sp','ward','reward','ewar','act'],RandomRange(150,200)) Then
-    Begin
+    if IsMouseOverText(['emon','spirit','rit','ee','Coll','-sp','ward','reward','ewar','act'],RandomRange(150,200)) then
+    begin
       FastClick(Mouse_Right);
-      If ChooseOption.Select(['Collect'],750) Then
-      Begin
+      if ChooseOption.Select(['Collect'],750) then
+      begin
         SmartImage.Clear;
         Wait(GaussrangeInt(600,2000));
         Result:=True;
         Spirits:=Spirits+1;
         SetLength(ATPA,0);
         Exit;
-      End;
-    End;
-  End;
+      end;
+    end;
+  end;
   SetLength(ATPA,0);
 
   FUNCTIONSTOP:='FINDSPIRIT EXIT';
-End;
+end;
 
 Function Antiban: Boolean;
-Var
+var
   I: Integer;
-Begin
+begin
   FUNCTIONSTOP:='ANTIBAN ENTERED';
 
   I := Random(600);
   Case I Of
     1..3:
-      Begin
+      begin
         MouseOffClient(Random(4));
         Wait(GaussRangeInt(1000,7000));
         Result := True;
-      End;
+      end;
     4..7:
-      Begin
+      begin
         hoverSkill(Skill_Firemaking);
         Wait(GaussRangeInt(1000,2000));
         TabBackpack.Open;
         Result := True;
-      End;
+      end;
     8..50:
-      Begin
+      begin
         mousemovingobject;
         Result := True;
-      End;
+      end;
     51..200:
-      Begin
+      begin
         SleepAndMoveMouse(GaussRangeInt(1000,2500));
         Result:=True;
-      End;
+      end;
     201..400:
-      Begin
+      begin
         MouseOffClient(Random(4));
         Wait(GaussRangeInt(1000,7000));
         Result:=True;
-      End;
+      end;
     401..600:
-      Begin
+      begin
         Wait(RandomRange(250, 1500));
         Result:=True;
-      End;
-  End;
-  If TabBackpack.Count>5 Then
+      end;
+  end;
+  if TabBackpack.Count>5 then
     Wait(GaussRangeInt(3500, 3600));
 
   FUNCTIONSTOP:='ANTIBAN EXIT';
-End;
+end;
 
-Procedure Waiting;
-Var
-  Inv1,Time,Inv2: Integer;
-  B: TBox;
-  T: TTimeMarker;
-Begin
+procedure waiting;
+var
+  inv1, time, inv2: integer;
+  b: TBox;
+  t: TTimeMarker;
+begin
   FUNCTIONSTOP:='WAITING ENTERED';
 
-  If Not IsLoggedIn Then
+  if not IsLoggedIn then
     Exit;
 
   T.Start;
@@ -709,104 +733,107 @@ Begin
   Time:=GaussRangeInt(3500,5500);
   Repeat
     Wait(Random(100));
-    If Not IsLoggedIn Then
+    if not IsLoggedIn then
       Exit;
 
-    If CountLogs>Inv2 Then
+    if CountLogs>Inv2 then
       AntiBan;
 
-    If (Players[CurrentPlayer].booleans[1]) And (TabBackpack.Count<22) And (FindSpirit) Then
+    if (players[currentPlayer].booleans[1]) And (TabBackpack.Count<22) And (FindSpirit) then
           Break;
 
 
-    If (Not FirePresent) And (Not isMouseOverMenuOpen(b)) Then
+    if (not FirePresent) And (not isMouseOverMenuOpen(b)) then
       Break;
 
 
-    If Inv1>TabBackPack.Count Then
-    Begin
+    if Inv1>TabBackPack.Count then
+    begin
       Inv1:=TabBackPack.Count;
-      If Debug Then
+      if Debug then
         Writeln('Inventory changed');
       T.Start;
       Timeout.Start;
       Reset.Start;
-    End;
+    end;
 
-    If (ClaimSpinTicket) Or (Not IsLoggedIn) Then
+    if (ClaimTicket) Or (not IsLoggedIn) then
       Exit;
   Until (CountLogs=0) or (T.GetTime>Time);
 
   FUNCTIONSTOP:='WAITING EXIT';
-End;
+end;
 
-Procedure Mainloop;
-Begin
+procedure Mainloop;
+begin
   FUNCTIONSTOP:='MAINLOOP ENTERED';
 
   ExitSquealOfFortune;
   ClaimSpinTicket;
 
-  If (CountLogs=0) Then
+  if (CountLogs=0) then
     WaitFunc(@BankShantay,Random(100),GaussRangeInt(10000,20000));
 
   LogCount:=LogCount+(CountLogs);
 
-  If FindFire Then
+  if FindFire then
     Waiting;
 
   ExitSquealOfFortune;
   ClaimSpinTicket;
 
-  If CountLogs=0 Then
+  if CountLogs=0 then
     ProgressReport;
 
-  If Timeout.GetTime>TimeoutLength Then
-  Begin
+  if Timeout.GetTime>TimeoutLength then
+  begin
     Writeln('Something went wrong, shutting down');
     SaveScreenshot(ScriptPath + '/fail_.bmp');
-    Players[CurrentPlayer].Logout;
-    TerminateScript;
-  End;
+    if failsafe then
+    begin
+      players[currentPlayer].Logout;
+      TerminateScript;
+    end;
+  end;
 
-  If Reset.GetTime>ResetLength Then
-  Begin
+  if Reset.GetTime>ResetLength then
+  begin
     Writeln('Something went wrong, resetting stuff');
     Minimap.ClickCompass;
     MainScreen.SetAngle(MS_ANGLE_HIGH);
     BankShantay;
     Reset.Start;
-  End;
+  end;
 
-  If Not IsLoggedIn Then
-  Begin
-    If Players[CurrentPlayer].Login Then
-    Begin
+  if not IsLoggedIn then
+  begin
+    if players[currentPlayer].Login then
+    begin
       Wait(GaussRangeInt(2000,4000));
       Minimap.ClickCompass;
       MainScreen.SetAngle(MS_ANGLE_HIGH);
       Reset.Start;
       ExitSquealOfFortune;
       ClaimSpinTicket;
-    End Else
+    end else
       Exit;
-  End;
+  end;
 
-  If Players[CurrentPlayer].booleans[0] Then
-    BreakHandler(Players[CurrentPlayer].integers[0],Players[CurrentPlayer].integers[1],15,7);
+  if players[currentPlayer].booleans[0] then
+    BreakHandler(players[currentPlayer].integers[0],players[currentPlayer].integers[1],15,7);
   Wait(Random(100));
 
   FUNCTIONSTOP:='MAINLOOP exit';
-End;
+end;
 
-Procedure LastRun;
-Begin
+procedure LastRun;
+begin
   Writeln(FunctionStop);
-End;
+end;
 
 
-Procedure Setup;
-Begin
+procedure Setup;
+begin
   ClearDebug;
   AutoUpdateMe;
 
@@ -831,32 +858,32 @@ Begin
 
   AddOnTerminate('LastRun');
 
-  If Not IsLoggedIn Then
-  Begin
-    If Not Players[CurrentPlayer].Login Then
+  if not IsLoggedIn then
+  begin
+    if not players[currentPlayer].Login then
       TerminateScript;
 
     Writeln('Just loggedin, waiting a bit');
     Wait(RandomRange(6000,10000));
-  End;
+  end;
 
-  If Not Debug Then
+  if not Debug then
     DisableSRLDebug:=True else
     DisableSRLDebug := false;
 
   clearDebug;
 
   if conversationBox.continue(true, true) then
-    Wait(RandomRange(3000,2000));
+    wait(randomRange(3000, 2000));
 
-  Minimap.ClickCompass;
-  MainScreen.SetAngle(MS_ANGLE_HIGH);
+  minimap.clickCompass;
+  mainScreen.setAngle(MS_ANGLE_HIGH);
 
-  StartingExperience := ChatBox.GetXP;
+  startingExperience := chatBox.getXP;
 
-  Players[CurrentPlayer].FindMod := False;
-  ExitSquealOfFortune;
-  ClaimSpinTicket;
+  players[currentPlayer].FindMod := False;
+  ExitTreasure;
+  ClaimTicket;
 
   LogCount:=CountLogs;
 
@@ -872,13 +899,13 @@ Begin
   Writeln('Looks like we are doing bonfires at Shantay Pass!');
 
   Writeln('Lets get this show on the road!');
-End;
+end;
 
-Begin
-  Setup;
+begin
+  setup;
 
-  While (Players.GetActive() > 0) Do
-    If Not POSDebug Then
-      Mainloop Else
+  while (players.getActive() > 0) do
+    if not POSDebug then
+      Mainloop else
       SPS.DebugPlayerPos;
-End.
+end.
