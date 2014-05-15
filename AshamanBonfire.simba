@@ -64,11 +64,11 @@ var
   currentBTime, timeout, reset: TTimeMarker;
   w, x, y, z, breakRounds, totalBreaks, realBTime: integer;
   logDTM, timeoutLength, resetLength: integer;
-  debug, failsafe: boolean;
+  debug, failsafe, lightlogs, normalbank: boolean;
   functionStop: string;
 
 const
-  scriptVersion = '3.6';
+  scriptVersion = '3.7';
   POSDebug = False;
 
 procedure declarePlayers();
@@ -88,17 +88,26 @@ begin
 
       World :=  100;                    //world
 
+      if (playerForm.players[i].settings[10] = 'Normal') then
+        normalBank := true;
+
+      if not normalBank then
+        for j := 0 to high(playerForm.comboBoxItems[1]) do                            //quickload
+          if (playerForm.players[i].settings[10] = playerForm.comboBoxItems[1][j]) then
+            integers[2] := j+2;
+
 
       // booleans
       booleans[0] := strToBool(playerForm.players[i].settings[3]);    //take breaks
       booleans[1] := strToBool(playerForm.players[i].settings[5]);    //find spirits
       FindMod := strToBool(playerForm.players[i].settings[4]);        //logmod
+      lightlogs := strToBool(playerForm.players[i].settings[8]);  //light logs
       failsafe := strToBool(playerForm.players[i].settings[6]);  //failsafe
       debug := strToBool(playerForm.players[i].settings[7]);  //debug
 
       // any other data types you've decided to use
       strings[0] := playerForm.players[i].settings[0]; //quickkey
-      strings[1] := playerForm.players[i].settings[8]; //logtype
+      strings[1] := playerForm.players[i].settings[9]; //logtype
     end;
 end;
 
@@ -112,14 +121,15 @@ begin
 
     editBoxLabels := ['QuickKey', 'Minutes until Break', '# of Minutes to Break'];
     editBoxDefaults := [ '0', '600', '15'];
-    checkBoxLabels := ['Take Breaks', 'Logout if Mod is near', 'Find Spirits', 'Timeout Failsafe', 'DebugMode'];
-    checkBoxDefaults := ['True','True','True', 'True', 'False'];
+    checkBoxLabels := ['Take Breaks', 'Logout if Mod is near', 'Find Spirits', 'Timeout Failsafe', 'DebugMode', 'Light Logs'];
+    checkBoxDefaults := ['True','True','True', 'True', 'False', 'True'];
 
-    comboBoxLabels := ['LogType'];
-    comboBoxDefaults := ['Maple'];
+    comboBoxLabels := ['LogType','QuickLoad'];
+    comboBoxDefaults := ['Maple','Normal'];
 
     setLength(comboBoxItems, length(comboBoxLabels));
     comboBoxItems[0] := ['Normal', 'Oak', 'Willow', 'Teak', 'Maple', 'Mahogany', 'Eucalyptus', 'Yew', 'Magic', 'Elder'];
+    comboBoxItems[1] := ['Normal', 'PRESET_1', 'PRESET_2'];
   end;
 end;
 
@@ -428,14 +438,20 @@ begin
 
   PinScreen.Enter(players[currentPlayer].BankPin);
 
-  if BankScreen.GetPackCount > 0 then
-    BankScreen.QuickDeposit(QUICK_DEPOSIT_INVENTORY);
+  if normalbank then
+    if BankScreen.GetPackCount > 0 then
+      BankScreen.QuickDeposit(QUICK_DEPOSIT_INVENTORY);
 
   T.Start;
   Repeat
     Wait(Random(100));
-    if BankScreen.Withdraw(10, WITHDRAW_AMOUNT_ALL, ['']) then
-      Break;
+    if normalbank then
+    begin
+      if BankScreen.Withdraw(10, WITHDRAW_AMOUNT_ALL, ['']) then
+        Break;
+    end else
+      If bankScreen.clickButton(Players[CurrentPlayer].Integers[2]) Then
+        Break;
 
     if not IsLoggedIn then
       Exit;
@@ -450,7 +466,20 @@ begin
     end;
   Until False;
 
-  BankScreen.Close;
+  if normalBank then
+    BankScreen.Close else
+  begin
+    t.start;
+    Time:=GaussRangeInt(4000, 8000);
+
+    Repeat
+      if not bankScreen.__find() then
+        Break;
+      If (T.GetTime>Time) Or (Not IsLoggedIn) Then
+        Exit;
+      Wait(GaussRangeInt(0, 200));
+    Until False;
+  end;
 
   T.Start;
   Repeat
@@ -527,7 +556,7 @@ begin
   FUNCTIONSTOP:='MOVEAWAY EXIT';
 end;
 
-Function LightFire:Boolean;
+Function lightFire:Boolean;
 begin
   FUNCTIONSTOP:='LIGHTFIRE ENTERED';
 
@@ -566,7 +595,7 @@ begin
   For I:=0 To 1 Do
     if FindDTM(LogDTM,X,Y,TabBackpack.GetBounds) then
     begin
-      if WaitFunc(@FirePresent,100,RandomRange(6000,7000)) then
+      if (WaitFunc(@FirePresent,100,RandomRange(6000,7000))) or (not lightlogs) then
       begin
         SendKeys(players[currentPlayer].strings[0], 60 + Random(60), 60 + Random(60));
         Wait(GaussRangeInt(0, 100));
