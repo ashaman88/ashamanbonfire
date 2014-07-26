@@ -68,7 +68,7 @@ var
   functionStop: string;
 
 const
-  scriptVersion = '3.7';
+  scriptVersion = '3.71';
   POSDebug = False;
 
 procedure declarePlayers();
@@ -193,7 +193,7 @@ begin
   FUNCTIONSTOP:='BREAK EXIT';
 end;
 
-Function GrabMaps: Boolean;
+function grabMaps: Boolean;
 var
   Map: String;    //Map Locations
   Name: String;      //Map Names
@@ -215,7 +215,7 @@ begin
   Result:= (FileExists(IncludePath + 'SPS\img\runescape_surface\0_0SP.png'));
 end;
 
-procedure RequirementsCheck;
+procedure requirementsCheck;
 begin
   if (not GrabMaps) then
     RaiseException(erCustomError, 'SPS Maps Do not Exist OR They Are Named Incorrectly!');
@@ -258,28 +258,28 @@ begin
     WriteLn('You have the latest version of the script!');
 end;
 
-Function FirePresent: Boolean;
+function firePresent: boolean;
 var
   MB: TBox;
   TPA: TPointArray;
   fireColors: T2DColorData;
 begin
-  if not IsLoggedIn then
-    Exit;
+  if not isLoggedIn then
+    exit;
 
-  Result:=False;
+  MB := mainscreen.playerBox;
+  MB.edit(-80, -80, +80, +80);
 
-  MB:=Mainscreen.PlayerBox;
-  MB.Edit(-80,-80,+80,+80);
                       //logs                                  //yeller
-  fireColors := [[1808090, 9, [2, [0.24, 2.45, 0.00]]], [6548726, 12, [2, [0.10, 0.94, 0.00]]]];
+  fireColors := [[1938904, 9, [2, [0.24, 2.64, 0.00]]], [7137516, 12, [2, [0.14, 1.91, 0.00]]]];
 
   if (fireColors.gatherIn(tpa, mb)) then
-    result:=length(tpa)>50;
+    result := length(tpa)>50;
+
   setlength(tpa,0);
 end;
 
-procedure PrintSmart;
+procedure printSmart;
 begin
   SmartImage.Clear;
   SmartImage.DrawText('==========AshamanBonfire==========',Point(11,319),clWhite);
@@ -330,7 +330,7 @@ begin
   print('chatBox.getXP(): XP found: ' + tostr(result), TDebug.SUB);
 end;
 
-procedure ProgressReport;
+procedure progressReport;
 begin
   if not Debug then
     ClearDebug;
@@ -354,14 +354,14 @@ begin
  PrintSmart;
 end;
 
-Function CountLogs: Integer;
+function countLogs: integer;
 var
   X,Y,I: Integer;
 begin
-  FUNCTIONSTOP:='COUNTLOGS ENTERED';
+  FUNCTIONSTOP := 'COUNTLOGS ENTERED';
 
-  Result:=TabBackpack.CountDTM(LogDTM);
-  if Debug then
+  result := tabBackpack.countDTM(LogDTM);
+  if debug then
     Writeln(ToStr(Result)+' logs found in inventory');
 
   FUNCTIONSTOP:='COUNTLOGSEXIT';
@@ -606,7 +606,7 @@ begin
           if Result then
             Exit else
             begin
-              if I=1 then
+              if (I=1) and (lightLogs) then
               begin
                 MoveAway;
                 LightFire;
